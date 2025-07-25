@@ -58,31 +58,31 @@ print(df.count())
 print(df.isnull().sum())
 
 
-# sns.boxplot(x = df['Price'])
-# plt.show()
+sns.boxplot(x = df['Price'])
+plt.show()
 
-# sns.boxplot(x = df['HP'])
-# plt.show()
+sns.boxplot(x = df['HP'])
+plt.show()
 
-# sns.boxplot(x = df['Cylinders'])
-# plt.show()
+sns.boxplot(x = df['Cylinders'])
+plt.show()
 
 # plotting a Histogram.
-# df.Make.value_counts().nlargest(40).plot(kind = 'bar', figsize = (10, 5))
-# plt.title("Number of cars by make")
-# plt.ylabel('Number of cars')
-# plt.xlabel('Make')
-# plt.show()
+df.Make.value_counts().nlargest(40).plot(kind = 'bar', figsize = (10, 5))
+plt.title("Number of cars by make")
+plt.ylabel('Number of cars')
+plt.xlabel('Make')
+plt.show()
 
 # finding the relations between the variables.
-# plt.figure(figsize = (10, 5))
-# c = df.select_dtypes(include = 'number').corr()
-# sns.heatmap(c, cmap = "BrBG", annot = True)
-# plt.show()
+plt.figure(figsize = (10, 5))
+c = df.select_dtypes(include = 'number').corr()
+sns.heatmap(c, cmap = "BrBG", annot = True)
+plt.show()
 
 # plotting a scatter plot.
-# fig, ax = plt.subplots(figsize = (10, 5))
-# ax.scatter(df['HP'], df['Price'])
-# ax.set_xlabel('HP')
-# ax.set_ylabel('Price')
-# plt.show()
+fig, ax = plt.subplots(figsize = (10, 5))
+ax.scatter(df['HP'], df['Price'])
+ax.set_xlabel('HP')
+ax.set_ylabel('Price')
+plt.show()
