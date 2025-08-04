@@ -4,62 +4,60 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 plt.show()
 sns.set_color_codes = True
+data_frame = pd.read_csv("Exploratory data analysis\data.csv")
+# print(data_frame.head())
+# print(data_frame.tail(5))
+# print(data_frame.dtypes)
 
-df = pd.read_csv('Exploratory data analysis\\data.csv')
+# Columns: [Make, Model, Year, Engine Fuel Type, Engine HP, Engine Cylinders, Transmission Type, Driven_Wheels, 
+#           Number of Doors, Market Category, Vehicle Size, Vehicle Style, highway MPG, city mpg, Popularity, MSRP]
 
-# print(df.head(5))
+data_frame = data_frame.drop(['Engine Fuel Type', 'Driven_Wheels', 'Number of Doors', 'Market Category', 'Vehicle Size', 'Vehicle Style'], axis = 1)
+# print(data_frame.head(5))
+data_frame = data_frame.rename(columns = {"Engine Cylinders": "Cylinders", "Transmission Type": "Transmission", 
+                                          "Engine HP": "HP", "MSRP": "Price"})
+# print(data_frame.head(5))
+print("Number of rows: ", data_frame.shape)
+# print(data_frame.count)
+duplicate_rows_df = data_frame[data_frame.duplicated()]
+print("Number of duplicate rows: ", duplicate_rows_df.shape)
+# print(data_frame.count)
+data_frame = data_frame.drop_duplicates()
+# print(data_frame.head(5))
+# print(data_frame.count)
+print("Number of rows after dropping duplicates: ", data_frame.shape)
+null_counts = data_frame.isnull().sum()
+print("Number of null values: ", null_counts)
+data_frame = data_frame.dropna()
+null_counts_after = data_frame.isnull().sum()
+print("Number of null values after dropping null values: ", null_counts_after)
 
-# print(df.tail(5))
-
-# print(df.dtypes)
-
-# print(df.shape)
-
-df = df.drop(['Model', 'Engine Fuel Type', 'Market Category', 'Vehicle Style',
-               'Popularity', 'Number of Doors', 'Vehicle Size', 'Driven_Wheels'], axis = 1)
-# print(df.head(5))
-
-df = df.rename(columns = {"Engine HP": "HP", "Engine Cylinders": "Cylinders", "Transmission Type": "Transmission",
-                "highway MPG": "MPG", "city mpg": "mpg"})
-# print(df.head(5))
-
-duplicate_df = df[df.duplicated()]
-# print("Number of duplicate rows: ", duplicate_df.shape)
-
-# print(df.count())
-
-df = df.drop_duplicates()
-# print(df.head(5))
-
-# print(df.count())
-
-# print(df.isnull().sum())
-
-df = df.dropna()
-# print(df.count())
-
-# print(df.isnull().sum())
-
-# sns.boxplot(x = df['Transmission'])
-# plt.show()
-# sns.boxplot(x = df['HP'])
-# plt.show()
-# sns.boxplot(x = df['Make'])
+# sns.boxplot(x = data_frame['Model'], y = data_frame["Year"])
+# sns.boxplot(y = "HP", data = data_frame)
+# sns.boxplot(x = data_frame['Cylinders'])
 # plt.show()
 
-# df.Make.value_counts().nlargest(40).plot(kind = 'bar', figsize = (10, 5))
-# plt.title("Number of cars")
-# plt.ylabel("num of cars")
-# plt.xlabel("make")
+# Histogram
+# data_frame.Make.value_counts().nlargest(35).plot(kind = 'bar', figsize = (10, 5))
+# plt.title("Number of cars by Make")
+# plt.xlabel("Make")
+# plt.ylabel("Number of cars")
+# # plt.xticks(rotation = 60)
+# plt.tight_layout()
 # plt.show()
 
-# plt.figure(figsize = (10, 5))
-# c = df.select_dtypes(include = 'number').corr()
-# sns.heatmap(c, cmap = 'BrBG', annot = True)
+# scatter plot
+# fig, axis = plt.subplots(figsize = (10, 5))
+# axis.scatter(data_frame['MSRP'], data_frame['HP'])
+# axis.set_xlabel("MSRP")
+# axis.set_ylabel("HP")
+# plt.tight_layout()
 # plt.show()
 
-fig, ax = plt.subplots(figsize = (10, 5))
-ax.scatter(df['HP'], df['Year'])
-ax.set_xlabel('HP')
-ax.set_ylabel('Year')
+# finding the relations between the variables
+plt.figure(figsize = (10, 5))
+co_r = data_frame.select_dtypes(include = "number").corr()
+# mask = np.triu(np.ones_like(co_r, dtype = bool))
+sns.heatmap(co_r, cmap = "BrBG", annot = True)
+plt.tight_layout()
 plt.show()

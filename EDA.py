@@ -68,16 +68,20 @@ sns.boxplot(x = df['Cylinders'])
 plt.show()
 
 # plotting a Histogram.
-df.Make.value_counts().nlargest(40).plot(kind = 'bar', figsize = (10, 5))
-plt.title("Number of cars by make")
-plt.ylabel('Number of cars')
-plt.xlabel('Make')
+df.Make.value_counts().nlargest(35).plot(kind = 'bar', figsize = (10, 5))
+plt.title("Number of cars by Make")
+plt.xlabel("Make")
+plt.ylabel("Number of cars")
+# plt.xticks(rotation = 60)
+plt.tight_layout()
 plt.show()
 
 # finding the relations between the variables.
 plt.figure(figsize = (10, 5))
-c = df.select_dtypes(include = 'number').corr()
-sns.heatmap(c, cmap = "BrBG", annot = True)
+co_r = df.select_dtypes(include = "number").corr()
+# mask = np.triu(np.ones_like(co_r, dtype = bool))
+sns.heatmap(co_r, cmap = "BrBG", annot = True)
+plt.tight_layout()
 plt.show()
 
 # plotting a scatter plot.
