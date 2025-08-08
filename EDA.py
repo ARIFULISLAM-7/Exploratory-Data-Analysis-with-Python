@@ -8,7 +8,7 @@ plt.show()
 sns.set_color_codes = True
 # sns.set_theme(style = "darkgrid", palette = "deep")
 
-df = pd.read_csv("Exploratory data analysis\\data.csv")
+df = pd.read_csv("Exploratory data analysis\data.csv")
 # to diplay the top 5 rows.
 print(df.head(5))
 
